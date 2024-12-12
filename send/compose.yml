@@ -1,0 +1,39 @@
+## After starting, make sure to chmod the folder to allow people to upload things!                                                                                              
+version: "3"
+
+services:
+  send:
+    image: registry.gitlab.com/timvisee/send:latest
+    restart: always
+    ports:
+      - '25004:25004'
+    volumes:
+      - ./uploads:/uploads
+    environment:
+      - VIRTUAL_HOST=send.example.org # This should be your url, without HTTPS!
+      - VIRTUAL_PORT=25004
+      - DHPARAM_GENERATION=false
+      - NODE_ENV=production
+      - BASE_URL=https://send.example.org # This should be your url, with HTTPS!
+      - PORT=25004
+      - REDIS_HOST=redis
+
+      # For local uploads storage
+      - FILE_DIR=/uploads
+
+      # To customize upload limits
+      - EXPIRE_TIMES_SECONDS=3600,86400,604800
+      - DEFAULT_EXPIRE_SECONDS=3600
+      - MAX_EXPIRE_SECONDS=604800
+      - DOWNLOAD_COUNTS=1,2,5
+      - MAX_DOWNLOADS=5
+      - MAX_FILE_SIZE=209715200 # This is 200MB.
+      - CUSTOM_FOOTER_URL=https://example.org # Link to your main site, if wanted!
+  redis:
+    image: 'redis:alpine'
+    restart: always
+    volumes:
+      - send-redis:/data
+
+volumes:
+  send-redis:
