@@ -17,4 +17,4 @@ jobs:
         uses: bridgelightcloud/github-mirror@main
         with:
           origin: 'https://github.com/gigirassy/docker-compose-files'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HUB_TOKEN }}
