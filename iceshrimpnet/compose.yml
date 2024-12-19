@@ -2,7 +2,7 @@ version: "3"
 
 services:
   web:
-    image: iceshrimp.dev/iceshrimp/iceshrimp.net:dev
+    image: iceshrimp.dev/iceshrimp/iceshrimp.net:latest
     container_name: iceshrimp.net_web
     restart: unless-stopped
     depends_on:
