@@ -19,5 +19,5 @@ example.com {
     reverse_proxy localhost:7825
 }
 ```
-Then type `caddy reload` or `caddy start`.
+Then type `caddy reload`.
 Wait a bit, and your service should come up.
