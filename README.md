@@ -23,7 +23,7 @@ example.com {
 Then type `caddy reload`.
 Wait a bit, and your service should come up.
 ## Keep your services up-to-date and save space!
-To automatically keep images up-to-date, there's this handy thing called Watchtower that will update services automatically. To do this, it will stop the service, pull the new image, and put that image up. This is extremely helpful. The command is below. (Run, not compose!)
+To automatically keep images up-to-date, there's this handy thing called Watchtower that will update services automatically. To do this, it will stop the service, pull the new image, and put that image up. Your data will not be lost. This is extremely helpful. The command is below. (Run, not compose!)
 ```
 docker run --detach \
     --name watchtower \
