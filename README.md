@@ -22,3 +22,39 @@ example.com {
 ```
 Then type `caddy reload`.
 Wait a bit, and your service should come up.
+## Keep your services up-to-date and save space!
+To automatically keep images up-to-date, there's this handy thing called Watchtower that will update services automatically. To do this, it will stop the service, pull the new image, and put that image up. This is extremely helpful. The command is below. (Run, not compose!)
+```
+docker run --detach \
+    --name watchtower \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    containrrr/watchtower
+```
+
+After that, the program will run in the background, updating images accordingly.
+
+### However, there's one catch...
+
+The old images don't get automatically deleted, which means they accumlate unnecessary space on your hard drive. You should set up a magical thing called a cron job.
+
+Make sure you're root for this. In the root directory, do this...
+
+```
+cd /etc/cron-daily
+nano docker-prune
+```
+
+Then, paste this code in and save. This will purge your old images every 3 days.
+
+```
+#!/bin/bash
+docker system prune -af  --filter "until=$((3*24))h"
+```
+
+Now, do this command to make the file executable.
+
+```
+chmod +x /etc/cron.daily/docker-prune
+```
+
+And bam, the system will automatically detox itself, just like your liver.
