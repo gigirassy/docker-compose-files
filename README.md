@@ -40,7 +40,7 @@ The old images don't get automatically deleted, which means they accumlate unnec
 Make sure you're root for this. In the root directory, do this...
 
 ```
-cd /etc/cron-daily
+cd etc/cron-daily
 nano docker-prune
 ```
 
@@ -58,3 +58,44 @@ chmod +x /etc/cron.daily/docker-prune
 ```
 
 And bam, the system will automatically detox itself, just like your liver.
+
+## Misc
+### Fail2ban w/ AbuseIPDB
+Fail2ban is a handy little program for Linux that will ban people trying to brute-force into your systems.
+
+To help other sysadmins out, make an AbuseIPDB account and follow instructions to verify your account and get an API key in your settings.
+
+Install fail2ban with: `apt-get install fail2ban`
+
+Then, go to your root directory and type in the following commands.
+
+```
+cd etc/fail2ban
+sudo nano jail.local
+```
+
+Paste the following text in and replace YOUR-API-KEY:
+
+```
+[sshd]
+enabled = true
+port    = ssh
+maxretry = 3
+findtime = 60d
+bantime = 7d
+ignoreip = 127.0.0.1
+logpath = /var/log/auth.log
+
+action = %(action_)s
+         %(action_abuseipdb)s[abuseipdb_apikey="YOUR-API-KEY", abuseipdb_category="18,22"]
+```
+
+This should automatically ban and report those who try to get into your server. Don't be shocked at the bulk of reports you'll automatically upload to AbuseIPDB; those bots are literally everywhere, spamming random IPs 24/7.
+
+### Uptime checking w/ Updown.io
+
+While there is open source status maintaining software out there, they're not really suited to a novice's needs. This option costs money eventually, but it's ultimately very cheap and worth it, and they will send a notification to your email immediately if your service is down or has an expired SSL certificate.
+
+Setting this up is very simple, make an account with your most active email and then add your sites' URLs accordingly. Set it to check every 5 or 10 minutes. They support basic auth, which is great.
+
+Then, make a status page (Update it every time you add a new link!) and link it to a domain if you want.
