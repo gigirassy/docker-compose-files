@@ -4,8 +4,11 @@ On Github or somewhere else? This is mirrored from: https://gitz.blitzw.in/nune/
 ## How to use
 You need to install docker-compose. Also Caddy if you need a reverse proxy.
 Generally with these, you'll make a folder for the service you wanna host, make a file called compose.yml, copy the contents in, modify accordingly, and `docker compose up -d` these up.
+## Getting a domain
 For a reverse proxy, you need a domain. If you can't buy any domain for any reason, eu.org and [freedns](https://freedns.afraid.org/) are awesome projects that can give you a subdomain for free that you can reverse-proxy safely to.
 You can also use your real cash to pay via buying a prepaid card from behind the counter and using that to rent out domains.
+### IMPORTANT
+Make sure your domain has WHOIS privacy available 24/7 with no cost. Otherwise, you could easily be doxxed with a lookup of your domain.
 ## Things to keep in mind
 The first four-five-digit number in ports is the port for your machine, the second after the `:` is the port for the container. Don't change the second number unless there's a configuration setting that allows you to modify like so.
 Use a server in your home [properly configured](https://caddy.community/t/using-caddy-as-a-reverse-proxy-in-a-home-network/9427), or a VPS. I personally recommend Webdock for a VPS.
