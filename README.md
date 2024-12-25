@@ -1,8 +1,11 @@
 On Github or somewhere else? This is mirrored from: https://gitz.blitzw.in/nune/docker-compose-files/
+## Spec recommendations
+50+ GB of space, 4 threads, and 12GB of RAM should be enough to run a large bulk of these services at once. However, some have done similar stuff to me with just 4GB of RAM.
 ## How to use
 You need to install docker-compose. Also Caddy if you need a reverse proxy.
 Generally with these, you'll make a folder for the service you wanna host, make a file called compose.yml, copy the contents in, modify accordingly, and `docker compose up -d` these up.
 For a reverse proxy, you need a domain. If you can't buy any domain for any reason, eu.org and [freedns](https://freedns.afraid.org/) are awesome projects that can give you a subdomain for free that you can reverse-proxy safely to.
+You can also use your real cash to pay via buying a prepaid card from behind the counter and using that to rent out domains.
 ## Things to keep in mind
 The first four-five-digit number in ports is the port for your machine, the second after the `:` is the port for the container. Don't change the second number unless there's a configuration setting that allows you to modify like so.
 Use a server in your home [properly configured](https://caddy.community/t/using-caddy-as-a-reverse-proxy-in-a-home-network/9427), or a VPS. I personally recommend Webdock for a VPS.
@@ -13,7 +16,7 @@ Install caddy with the following command after `apt-get update` and `apt-get upg
 ```
 apt-get install caddy
 ```
-Once installed, make a folder and make a file named Caddyfile. Write this in it with nano, and replace accordingly. The number can be replaced with the machine port (again, first number under ports section).
+Once installed, make a folder and make a file named Caddyfile. Write this in it with nano, and replace accordingly. The number can be replaced with the machine port (again, first number under ports section). Repeat this step for any new services.
 Make sure the domain has a DNS record with the server IP.
 ```
 example.com {
@@ -22,6 +25,12 @@ example.com {
 ```
 Then type `caddy reload`.
 Wait a bit, and your service should come up.
+You might also want to slap this at the beginning of your Caddyfile and replace accordingly; it links your email so you get notified when your SSL certificates are about to expire.
+```
+{
+    email me@example.com
+}
+```
 ## Keep your services up-to-date and save space!
 To automatically keep images up-to-date, there's this handy thing called Watchtower that will update services automatically. To do this, it will stop the service, pull the new image, and put that image up. Your data will not be lost. This is extremely helpful. The command is below. (Run, not compose!)
 ```
