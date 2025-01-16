@@ -1,0 +1,10 @@
+services:
+  binternet:
+    container_name: binternet
+    image: ghcr.io/ahwxorg/binternet:latest
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    ports:
+     - '6600:8080' # change first as needed
