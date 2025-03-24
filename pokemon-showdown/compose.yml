@@ -1,0 +1,11 @@
+services:
+    pokemon-showdown:
+        stdin_open: true
+        tty: true
+        container_name: pokemon-showdown
+        ports:
+            - 30999:8000
+        volumes:
+            - ./config/:/pokemon-showdown/config/
+            - ./index.html:/pokemon-showdown/server/static/index.html ## custom index.html file prevents redirects to psim.us
+        image: scrubbs/pokemon-showdown
